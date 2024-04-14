@@ -1,5 +1,7 @@
 # RMem: Restricted Memory Banks Improve Video Object Segmentation
 
+Junbao Zhou, [Ziqi Pang](https://ziqipang.github.io/), [Yu-Xiong Wang](https://yxw.web.illinois.edu/)
+
 University of Illinois Urbana-Champaign
 
 ## Abstract

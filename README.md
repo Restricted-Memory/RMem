@@ -12,6 +12,10 @@ With recent video object segmentation (VOS) benchmarks evolving to challenging s
 
 ![method](figures/method2.jpg)
 
+- (a) RMem revisits restricting memory banks to enhance VOS, motivated by the insight from our pilot study.
+- (b) To maintain an informative memory bank, we balance both the relevance and freshness of frames when updating the latest features.
+- (c) Benefiting from smaller memory size gaps between training and inference, we introduce previously overlooked temporal positional embedding to encode the orders of frames explicitly, which enhances spatio-temporal reasoning. 
+
 ## Data preparation
 
 Download the VOST dataset from [vostdataset.org](https://www.vostdataset.org/) , and organize the directory structure as follows:

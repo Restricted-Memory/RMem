@@ -41,4 +41,11 @@ Download the VOST dataset from [vostdataset.org](https://www.vostdataset.org/) ,
 
 ## Checkpoint
 
+|                   |                                                                                                     |
+| ----------------- | --------------------------------------------------------------------------------------------------- |
+| R50 AOTL + RMem   | [download link](https://drive.google.com/file/d/1_Wp-zXw2u9zIWRJLYCw-TGaVOKGFaVb_/view?usp=sharing) |
+| R50 DeAOTL + RMem | [download link](https://drive.google.com/file/d/1jMqSOuF5t_W6U7UrKdaX6SH42GSnc78-/view?usp=sharing) |
+
+Download the checkpoint and put them in `./aot_plus/pretrain_models/`
+
 ## Evaluation

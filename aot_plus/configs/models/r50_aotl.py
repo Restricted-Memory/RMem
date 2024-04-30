@@ -5,14 +5,14 @@ class ModelConfig(DefaultModelConfig):
     def __init__(self):
         super().__init__()
         self.FORMER_MEM_LEN = 1
-        self.LATTER_MEM_LEN = 999
+        self.LATTER_MEM_LEN = 7
         self.GRU_MEMORY = False
         self.FREEZE_AOT_EXCEPT_GRU = self.GRU_MEMORY and True
         gru_memory_text = f"_Gru_mem_{self.FORMER_MEM_LEN}_{self.LATTER_MEM_LEN}{'_Freeze' if self.FREEZE_AOT_EXCEPT_GRU else ''}" if self.GRU_MEMORY else ""
         self.TIME_ENCODE = False
         self.TIME_ENCODE_NORM = self.TIME_ENCODE and True
         time_encode_text = f"_Time_encode{'_norm' if self.TIME_ENCODE_NORM else ''}" if self.TIME_ENCODE else ""
-        self.USE_TEMPORAL_POSITIONAL_EMBEDDING = False
+        self.USE_TEMPORAL_POSITIONAL_EMBEDDING = True
         self.FREEZE_AOT_EXCEPT_TEMPORAL_EMB = self.USE_TEMPORAL_POSITIONAL_EMBEDDING and False
         self.TEMPORAL_POSITIONAL_EMBEDDING_SLOT_4 = self.USE_TEMPORAL_POSITIONAL_EMBEDDING and True
         temporal_pe_text = f"_Temp_pe{'_Freeze' if self.FREEZE_AOT_EXCEPT_TEMPORAL_EMB else ''}{'_Slot_4' if self.TEMPORAL_POSITIONAL_EMBEDDING_SLOT_4 else ''}" if self.USE_TEMPORAL_POSITIONAL_EMBEDDING else ""

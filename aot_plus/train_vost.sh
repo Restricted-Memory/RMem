@@ -4,7 +4,7 @@ exp="aotplus"
 # exp="aotplus_4lstt"
 # exp="debug"
 gpu_num="4"
-devices="0,1,2,3"
+devices="3,4,5,6"
 
 # model="aott"
 # model="aots"
@@ -60,7 +60,7 @@ eval_name="debug"
 # eval_name="max_mem_1_8_nearest_flip"
 # eval_name="max_mem_1_8_nearest_flip_drop_layer_0_focus_mov_mean_0.8"
 # eval_name="max_mem_1_8_nearest_flip_drop_layer_012_focus_mov_mean_0.9"
-# eval_name="max_mem_1_8_nearest_flip_drop_layer_0_focus_mov_mean_0.8_ucb_reset_0_plus_8_mul_1.5"
+eval_name="max_mem_1_8_nearest_flip_drop_layer_0_focus_mov_mean_0.8_ucb_reset_0_plus_8_mul_1.5"
 # eval_name="max_mem_1_8_nearest_exact_drop_layer_0_focus_mov_mean_0.8_ucb_reset_0_plus_8_mul_1.5"
 # eval_name="max_mem_1_8_nearest_exact"
 # eval_name="max_mem_1_7_nearest_flip"
@@ -70,7 +70,7 @@ eval_name="debug"
 CUDA_VISIBLE_DEVICES=${devices} python tools/eval.py --result_path "${result_path}" \
 	--dataset ${dataset} --split ${split} --gpu_num ${gpu_num} --ms 1.0 \
 	--eval_name ${eval_name} \
-	--latter_mem_len 999 \
+	--latter_mem_len 8 \
 	--fix_random \
 	# --debug_fix_random
 

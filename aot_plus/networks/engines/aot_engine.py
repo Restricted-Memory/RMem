@@ -14,7 +14,7 @@ from networks.models.aot import AOT
 from networks.layers.position import get_temporal_positional_encoding
 
 from networks.debug import debug
-USE_ATTEN_WEIGHT_DROP = False
+USE_ATTEN_WEIGHT_DROP = True
 class AOTEngine(nn.Module):
     def __init__(
         self,
@@ -429,8 +429,8 @@ class AOTEngine(nn.Module):
             pos_emb=self.pos_emb,
             size_2d=self.enc_size_2d,
             temporal_encoding=temporal_pos_emb,
-            # save_atten_weights=USE_ATTEN_WEIGHT_DROP,
-            save_atten_weights=True,
+            save_atten_weights=USE_ATTEN_WEIGHT_DROP,
+            # save_atten_weights=True,
         )
 
         return self.decode_current_logits(curr_enc_embs, curr_lstt_output, output_size=output_size)

@@ -14,6 +14,31 @@ With recent video object segmentation (VOS) benchmarks evolving to challenging s
 
 ## Data preparation
 
+Download the VOST dataset from [vostdataset.org](https://www.vostdataset.org/) , and organize the directory structure as follows:
+
+```bash
+├── aot_plus
+│   ├── configs
+│   ├── dataloaders
+│   ├── datasets
+│   │   └── VOST
+│   │       ├── Annotations
+│   │       ├── ImageSets
+│   │       ├── JPEGImages
+│   │       └── JPEGImages_10fps
+│   ├── docker
+│   ├── networks
+│   ├── pretrain_models
+│   └── tools
+├── evaluation
+└── README.md
+```
+
+> hint: you can achieve it by soft link:
+> ```bash
+> ln -s <your VOST directory>  ./datasets/VOST
+> ```
+
 ## Checkpoint
 
 ## Evaluation

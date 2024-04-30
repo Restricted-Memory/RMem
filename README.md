@@ -41,11 +41,15 @@ Download the VOST dataset from [vostdataset.org](https://www.vostdataset.org/) ,
 
 ## Checkpoint
 
-| Method            |                                                                                                     |
-| ----------------- | --------------------------------------------------------------------------------------------------- |
-| R50 AOTL + RMem   | [download link](https://drive.google.com/file/d/1_Wp-zXw2u9zIWRJLYCw-TGaVOKGFaVb_/view?usp=sharing) |
-| R50 DeAOTL + RMem | [download link](https://drive.google.com/file/d/1jMqSOuF5t_W6U7UrKdaX6SH42GSnc78-/view?usp=sharing) |
+| Method            | $\mathcal{J}_{tr}$ | $\mathcal{J}$ |                                  |
+| ----------------- | ------------------ | ------------- | -------------------------------- |
+| R50 AOTL + RMem   | 39.8               | 50.5          | [download link][aot-ckpt-link]   |
+| R50 DeAOTL + RMem | 40.4               | 51.8          | [download link][deaot-ckpt-link] |
 
 Download the checkpoint and put them in `./aot_plus/pretrain_models/`
+
+[aot-ckpt-link]: https://drive.google.com/file/d/1_Wp-zXw2u9zIWRJLYCw-TGaVOKGFaVb_/view?usp=sharing
+[deaot-ckpt-link]: https://drive.google.com/file/d/1jMqSOuF5t_W6U7UrKdaX6SH42GSnc78-/view?usp=sharing
+
 
 ## Evaluation

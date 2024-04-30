@@ -53,3 +53,17 @@ Download the checkpoint and put them in `./aot_plus/pretrain_models/`
 
 
 ## Evaluation
+
+Firstly prepare the pytorch environment. Please follow the instructions on [pytorch.org](https://pytorch.org/) and choose the pytorch version that is most compatible with your machine.
+
+Then
+```bash
+conda install numpy matplotlib scipy scikit-learn tqdm pyyaml pandas
+pip install opencv-python
+```
+
+Now you can replicate the result of our checkpoint.
+```bash
+cd ./aot_plus
+./eval_vost.sh
+```

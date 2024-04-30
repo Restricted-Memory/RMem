@@ -21,11 +21,13 @@ dataset="vost"
 split="val"
 eval_name="debug"
 CUDA_VISIBLE_DEVICES=${devices} python tools/eval.py --result_path ${result_path} \
-	--dataset ${dataset} --split ${split} --gpu_num ${gpu_num} --ms 1.0 1.1 \
-	--ckpt_path pretrain_models/R50_AOTL_PRE_YTB_DAV.pth \
+	--dataset ${dataset} --split ${split} --gpu_num ${gpu_num} --ms 1.0 \
+	--ckpt_path pretrain_models/aotplus_R50_AOTL_Temp_pe_Slot_4_ema_20000.pth \
 	--eval_name ${eval_name} \
+	--latter_mem_len 8 \
 	--fix_random \
-	--debug_fix_random
+	# --debug_fix_random
+
 
 result_path="${result_path}/eval/${dataset}/${eval_name}/"
 echo "result_path=$result_path"
@@ -33,4 +35,4 @@ echo "result_path=$result_path"
 
 model_name=$(python -c "from configs.models.$model import ModelConfig ;print(ModelConfig().MODEL_NAME)")
 cd ../evaluation
-python ./evaluation_method.py --results_path ../aot_plus/${result_path}
+python ./evaluation_method.py --results_path "../aot_plus/${result_path}" --dataset_path ${dataset} --re

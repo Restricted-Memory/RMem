@@ -71,3 +71,21 @@ Now you can replicate the result of our checkpoint.
 cd ./aot_plus
 ./eval_vost.sh
 ```
+
+## Training
+
+If you want to train your own model, you can train it from the AOT/DeAOT model (pretrained on DAVIS and YouTubeVOS) provided by the official AOT team. The models can be accessed from the [MODEL_ZOO](https://github.com/yoxu515/aot-benchmark/blob/main/MODEL_ZOO.md)
+
+| Method     |                                  |
+| ---------- | -------------------------------- |
+| R50 AOTL   | [download link][r50-aot-link]   |
+| R50 DeAOTL | [download link][r50-deaot-link] |
+
+Then
+```bash
+cd ./aot_plus
+./train_vost.sh
+```
+
+[r50-aot-link]: https://drive.google.com/file/d/1qJDYn3Ibpquu4ffYoQmVjg1YCbr2JQep/view?usp=sharing
+[r50-deaot-link]: https://drive.google.com/file/d/1QoChMkTVxdYZ_eBlZhK2acq9KMQZccPJ/view?usp=sharing

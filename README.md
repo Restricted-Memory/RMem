@@ -47,6 +47,8 @@ Download the VOST dataset from [vostdataset.org](https://www.vostdataset.org/) ,
 
 | Method            | $\mathcal{J}_{tr}$ | $\mathcal{J}$ |                                  |
 | ----------------- | ------------------ | ------------- | -------------------------------- |
+| R50 AOTL          | 37.0               | 49.2          | [download link][aot-vanilla-ckpt-link]   |
+| R50 DeAOTL        | 37.6               | 51.0          | [download link][deaot-vanilla-ckpt-link] |
 | R50 AOTL + RMem   | 39.8               | 50.5          | [download link][aot-ckpt-link]   |
 | R50 DeAOTL + RMem | 40.4               | 51.8          | [download link][deaot-ckpt-link] |
 
@@ -55,6 +57,8 @@ Download the checkpoint and put them in `./aot_plus/pretrain_models/`
 [aot-ckpt-link]: https://drive.google.com/file/d/1_Wp-zXw2u9zIWRJLYCw-TGaVOKGFaVb_/view?usp=sharing
 [deaot-ckpt-link]: https://drive.google.com/file/d/1jMqSOuF5t_W6U7UrKdaX6SH42GSnc78-/view?usp=sharing
 
+[aot-vanilla-ckpt-link]: https://drive.google.com/file/d/1fHS5txnxRwaVCoYWSnIJfUgor8ru07NG/view?usp=sharing
+[deaot-vanilla-ckpt-link]: https://drive.google.com/file/d/1edAk8O2PWRS4jpD3m8K_H1kmj89VF-sd/view?usp=sharing
 
 ## Evaluation
 
@@ -76,8 +80,8 @@ cd ./aot_plus
 
 If you want to train your own model, you can train it from the AOT/DeAOT model (pretrained on DAVIS and YouTubeVOS) provided by the official AOT team. The models can be accessed from the [MODEL_ZOO](https://github.com/yoxu515/aot-benchmark/blob/main/MODEL_ZOO.md)
 
-| Method     |                                  |
-| ---------- | -------------------------------- |
+| Method     |                                 |
+| ---------- | ------------------------------- |
 | R50 AOTL   | [download link][r50-aot-link]   |
 | R50 DeAOTL | [download link][r50-deaot-link] |
 

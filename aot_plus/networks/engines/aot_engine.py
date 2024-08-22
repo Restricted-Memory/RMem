@@ -350,23 +350,23 @@ class AOTEngine(nn.Module):
         if is_update_long_memory:
             self.long_memories_indexes.append(self.frame_step)
             debug(f"{self.long_memories_indexes = }")
-            if self.AOT.LSTT.long_term_memories[0][0].size(0) > \
-                (self.cfg.FORMER_MEM_LEN + self.cfg.LATTER_MEM_LEN):
-                pred_id_logits = F.interpolate(
-                    self.pred_id_logits,
-                    size=self.enc_size_2d,
-                    mode="bilinear",
-                    align_corners=True,
-                )
-                pred_prob = torch.softmax(pred_id_logits, dim=1)
-                foreground_proba = 1 - pred_prob[:, 0:1, ...]
-                self.AOT.LSTT.restrict_long_memories(
-                    former_memory_len=self.cfg.FORMER_MEM_LEN,
-                    latter_memory_len=self.cfg.LATTER_MEM_LEN,
-                    use_atten_weight=USE_ATTEN_WEIGHT_DROP,
-                    long_memories_indexes=self.long_memories_indexes,
-                    foreground_proba=foreground_proba,
-                )
+            # if self.AOT.LSTT.long_term_memories[0][0].size(0) > \
+            #     (self.cfg.FORMER_MEM_LEN + self.cfg.LATTER_MEM_LEN):
+            pred_id_logits = F.interpolate(
+                self.pred_id_logits,
+                size=self.enc_size_2d,
+                mode="bilinear",
+                align_corners=True,
+            )
+            pred_prob = torch.softmax(pred_id_logits, dim=1)
+            foreground_proba = 1 - pred_prob[:, 0:1, ...]
+            self.AOT.LSTT.restrict_long_memories(
+                former_memory_len=self.cfg.FORMER_MEM_LEN,
+                latter_memory_len=self.cfg.LATTER_MEM_LEN,
+                use_atten_weight=USE_ATTEN_WEIGHT_DROP,
+                long_memories_indexes=self.long_memories_indexes,
+                foreground_proba=foreground_proba,
+            )
             debug(f"{self.AOT.LSTT.long_term_memories[0][0].size(0) = }")
         if self.cfg.REVERSE_INFER:
             if self.frame_step == 1:

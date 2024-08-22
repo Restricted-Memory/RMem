@@ -76,6 +76,8 @@ cd ./aot_plus
 ./eval_vost.sh
 ```
 
+If you want to evaluate AOT, please modify the `eval_vost.sh`, change `model` to `r50_aotl` and change `ckpt_path` to `aotplus_R50_AOTL_Temp_pe_Slot_4_ema_20000.pth`.
+
 ## Training
 
 If you want to train your own model, you can train it from the AOT/DeAOT model (pretrained on DAVIS and YouTubeVOS) provided by the official AOT team. The models can be accessed from the [MODEL_ZOO](https://github.com/yoxu515/aot-benchmark/blob/main/MODEL_ZOO.md)

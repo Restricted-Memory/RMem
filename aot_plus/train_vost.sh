@@ -1,35 +1,29 @@
 exp="aotplus"
-# exp="aotplus_4wstep"
-# exp="aotplus_6lstt"
-# exp="aotplus_4lstt"
 # exp="debug"
 gpu_num="4"
-devices="3,4,5,6"
+devices="1,2,3,4"
 
 # model="aott"
 # model="aots"
 # model="aotb"
 # model="aotl"
 model="r50_aotl"
-# model="r50_deaotl"
-# model="r50_aotl_LSTT_pullback"
-# model="r50_topdown_aotl"
+model="r50_deaotl"
 # model="swinb_aotl"
 	
 stage="pre_vost"
-# stage="pre_vost_2"
-# stage="pre_vost_25q"
+stage="pre_vost_2"
 result_path=$(python -c "from tools.get_config import get_config ;cfg = get_config('$stage', '$exp', '$model') ;print(cfg.DIR_RESULT)")
 echo "result_path=$result_path"
-# CUDA_VISIBLE_DEVICES=${devices} python tools/train.py --amp \
-# 	--exp_name ${exp} \
-# 	--stage ${stage} \
-# 	--model ${model} \
-# 	--gpu_num ${gpu_num} \
-# 	--batch_size 8 \
-# 	--fix_random \
-# 	# --log ./debug_logs \
-# 	# --debug_fix_random
+CUDA_VISIBLE_DEVICES=${devices} python tools/train.py --amp \
+	--exp_name ${exp} \
+	--stage ${stage} \
+	--model ${model} \
+	--gpu_num ${gpu_num} \
+	--batch_size 8 \
+	--fix_random \
+	# --log ./debug_logs \
+	# --debug_fix_random
 
 
 dataset="vost"
@@ -68,6 +62,9 @@ eval_name="max_mem_1_8_nearest_flip_drop_layer_0_focus_mov_mean_0.8_ucb_reset_0_
 # eval_name="494_374_max_mem_1_11"
 # eval_name="max_mem_1_7_rand_11"
 CUDA_VISIBLE_DEVICES=${devices} python tools/eval.py --result_path "${result_path}" \
+	--exp_name ${exp} \
+	--stage ${stage} \
+	--model ${model} \
 	--dataset ${dataset} --split ${split} --gpu_num ${gpu_num} --ms 1.0 \
 	--eval_name ${eval_name} \
 	--latter_mem_len 8 \

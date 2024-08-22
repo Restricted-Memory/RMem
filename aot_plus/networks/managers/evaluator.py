@@ -121,6 +121,9 @@ class Evaluator(object):
             tr.MultiToTensor()
         ])
 
+        if cfg.TEST_DATASET_SPLIT == "test":
+            cfg.DIR_EVALUATION = cfg.DIR_TEST
+
         eval_name = f'{cfg.TEST_DATASET}_{cfg.TEST_DATASET_SPLIT}_{cfg.EXP_NAME}_{cfg.STAGE_NAME}_ckpt_{self.ckpt}'
 
         if cfg.TEST_EMA:
@@ -299,8 +302,6 @@ class Evaluator(object):
                 seq_name = seq_dataset.seq_name
                 print(
                     f'\nGPU {self.gpu} - Processing Seq {seq_name} [{video_num}/{total_video_num}]:')
-                mark_path = os.path.join(self.result_root, f"{seq_name}_mark")
-                open(mark_path, 'w')
                 gc.collect()
                 torch.cuda.empty_cache()
 
@@ -329,8 +330,6 @@ class Evaluator(object):
                 num_frames = len(seq_dataset)
                 max_gap = int(round(num_frames / 30))
                 gap = max(max_gap, 5)
-                # gap = min(gap, 8)
-                # gap = 8
                 if cfg.NO_MEMORY_GAP:
                     gap = int(round(gap / 4))
                 print(f"{num_frames = }  {gap = }  long term memry frames : {num_frames / gap}")
@@ -441,46 +440,46 @@ class Evaluator(object):
                                                   dim=1,
                                                   keepdim=True).float()
 
-                        LSTT = self.model.LSTT
-                        if hasattr(LSTT.layers[0], "record_T"):
-                            h, w = engine.aot_engines[0].enc_size_2d
-                            inner_pred_logits = engine.aot_engines[0].pred_id_logits
-                            inner_pred_logits = F.interpolate(inner_pred_logits, size=(h, w), mode="bilinear").detach().cpu()
-                            inner_pred_label = torch.argmax(inner_pred_logits, dim=1).squeeze()
-                            print(f"{LSTT.layers[0].record_T = }")
-                            print(f"{engine.aot_engines[0].long_memories_indexes = }")
-                            saved_layer_memory = {
-                                    "h": h,
-                                    "w": w,
-                                    "ori_height": ori_height,
-                                    "ori_width": ori_width,
-                                    "inner_pred_label": inner_pred_label.detach().cpu(),
-                                    "long_mem_len": LSTT.layers[0].record_T,
-                                    "memory_indices": engine.aot_engines[0].long_memories_indexes,
-                                    "attn_weights": [],
-                                    "short_attn_weights": [],
-                            }
-                            output_seq_folder = os.path.join(self.result_root, seq_name)
-                            if LSTT.layers[0].record_T > 1:
-                                for lstt_layer in LSTT.layers:
-                                    attn_values = np.reshape(lstt_layer.attn_values, (h, w, -1))
-                                    attn_indices_T, attn_indices_hw = lstt_layer.attn_indices
-                                    attn_indices_h, attn_indices_w = np.unravel_index(attn_indices_hw, (h, w))
-                                    attn_indices = np.stack([attn_indices_T, attn_indices_h, attn_indices_w], axis=-1)
-                                    attn_indices = np.reshape(attn_indices, (h, w, -1, 3))
-                                    saved_layer_memory["attn_weights"].append({
-                                        "attn_values": attn_values,
-                                        "attn_indices": attn_indices,
-                                    })
-                                    attn_values = np.reshape(lstt_layer.short_attn_values, (h, w, -1))
-                                    attn_indices_h, attn_indices_w = np.unravel_index(lstt_layer.short_attn_indices, (h, w))
-                                    attn_indices = np.stack([attn_indices_h, attn_indices_w], axis=-1)
-                                    attn_indices = np.reshape(attn_indices, (h, w, -1, 2))
-                                    saved_layer_memory["short_attn_weights"].append({
-                                        "attn_values": attn_values,
-                                        "attn_indices": attn_indices,
-                                    })
-                                torch.save(saved_layer_memory, os.path.join(output_seq_folder, f"{pathlib.Path(imgname[0]).stem}_layer_mem.pt"))
+                        # LSTT = self.model.LSTT
+                        # if hasattr(LSTT.layers[0], "record_T"):
+                        #     h, w = engine.aot_engines[0].enc_size_2d
+                        #     inner_pred_logits = engine.aot_engines[0].pred_id_logits
+                        #     inner_pred_logits = F.interpolate(inner_pred_logits, size=(h, w), mode="bilinear").detach().cpu()
+                        #     inner_pred_label = torch.argmax(inner_pred_logits, dim=1).squeeze()
+                        #     print(f"{LSTT.layers[0].record_T = }")
+                        #     print(f"{engine.aot_engines[0].long_memories_indexes = }")
+                        #     saved_layer_memory = {
+                        #             "h": h,
+                        #             "w": w,
+                        #             "ori_height": ori_height,
+                        #             "ori_width": ori_width,
+                        #             "inner_pred_label": inner_pred_label.detach().cpu(),
+                        #             "long_mem_len": LSTT.layers[0].record_T,
+                        #             "memory_indices": engine.aot_engines[0].long_memories_indexes,
+                        #             "attn_weights": [],
+                        #             "short_attn_weights": [],
+                        #     }
+                        #     output_seq_folder = os.path.join(self.result_root, seq_name)
+                        #     if LSTT.layers[0].record_T > 1:
+                        #         for lstt_layer in LSTT.layers:
+                        #             attn_values = np.reshape(lstt_layer.attn_values, (h, w, -1))
+                        #             attn_indices_T, attn_indices_hw = lstt_layer.attn_indices
+                        #             attn_indices_h, attn_indices_w = np.unravel_index(attn_indices_hw, (h, w))
+                        #             attn_indices = np.stack([attn_indices_T, attn_indices_h, attn_indices_w], axis=-1)
+                        #             attn_indices = np.reshape(attn_indices, (h, w, -1, 3))
+                        #             saved_layer_memory["attn_weights"].append({
+                        #                 "attn_values": attn_values,
+                        #                 "attn_indices": attn_indices,
+                        #             })
+                        #             attn_values = np.reshape(lstt_layer.short_attn_values, (h, w, -1))
+                        #             attn_indices_h, attn_indices_w = np.unravel_index(lstt_layer.short_attn_indices, (h, w))
+                        #             attn_indices = np.stack([attn_indices_h, attn_indices_w], axis=-1)
+                        #             attn_indices = np.reshape(attn_indices, (h, w, -1, 2))
+                        #             saved_layer_memory["short_attn_weights"].append({
+                        #                 "attn_values": attn_values,
+                        #                 "attn_indices": attn_indices,
+                        #             })
+                        #         torch.save(saved_layer_memory, os.path.join(output_seq_folder, f"{pathlib.Path(imgname[0]).stem}_layer_mem.pt"))
 
                         if new_obj_label is not None:
                             keep = (new_obj_label == 0).float()
@@ -586,7 +585,6 @@ class Evaluator(object):
                     device=self.gpu) / (1024.**3)
                 print(
                     f"GPU {self.gpu} - Seq {seq_name} - FPS: {1. / seq_avg_time_per_frame:.2f}. All-Frame FPS: {1. / total_avg_time_per_frame:.2f}, All-Seq FPS: {1. / avg_sfps:.2f}, Max Mem: {max_mem:.2f}G")
-                os.remove(mark_path)
 
         if self.seq_queue is not None:
             if self.rank != 0:

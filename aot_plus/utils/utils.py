@@ -79,7 +79,7 @@ def copy_codes(log_dir, ignore_function=ignore_non_py_file):
 class Tee(object):
     def __init__(self, filename):
         self.file_name = filename
-        with open(self.file_name, "w") as f:
+        with open(self.file_name, "a") as f:
             pass
         self.stdout = sys.stdout
 

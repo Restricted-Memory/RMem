@@ -329,6 +329,9 @@ class LongShortTermTransformer(nn.Module):
         long_memories_indexes=[],
         foreground_proba : torch.Tensor=None,
     ):
+        if self.long_term_memories[0][0].size(0) <= \
+            (former_memory_len + latter_memory_len):
+            return
         to_drop_idx = former_memory_len
         if self.gru_memory:
             to_drop_idx += 1

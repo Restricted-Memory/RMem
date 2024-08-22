@@ -3,6 +3,7 @@ import sys
 import importlib
 import sys
 import os
+from pathlib import Path
 
 sys.path.append('.')
 sys.path.append('..')
@@ -13,6 +14,7 @@ import torch
 import torch.multiprocessing as mp
 
 from networks.managers.evaluator import Evaluator
+from get_config import get_config
 
 
 def main_worker(gpu, cfg, seq_queue=None, info_queue=None, enable_amp=False):
@@ -51,6 +53,9 @@ def main_worker(gpu, cfg, seq_queue=None, info_queue=None, enable_amp=False):
 def main():
     import argparse
     parser = argparse.ArgumentParser(description="Eval VOS")
+    parser.add_argument('--exp_name', type=str, default='')
+    parser.add_argument('--stage', type=str, default='pre')
+    parser.add_argument('--model', type=str, default='aott')
 
     parser.add_argument('--result_path', type=str, required=True)
 
@@ -88,9 +93,14 @@ def main():
 
     args = parser.parse_args()
 
+
     sys.path.append(f"{args.result_path}/")
-    import config
-    cfg = config.Config()
+    if Path(f"{args.result_path}/config.py").is_file():
+        import config
+        cfg = config.Config()
+    else:
+        cfg = get_config(args.stage, args.exp_name, args.model)
+
 
     log_dir = make_log_dir(args.log, cfg.EXP_NAME)
     sys.stdout = Tee(os.path.join(log_dir, "print.log"))

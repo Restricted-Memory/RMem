@@ -137,11 +137,12 @@ class DefaultEngineConfig():
         self.DIR_TB_LOG = os.path.join(self.DIR_RESULT, 'log', 'tensorboard')
         self.DIR_IMG_LOG = os.path.join(self.DIR_RESULT, 'log', 'img')
         self.DIR_EVALUATION = os.path.join(self.DIR_RESULT, 'eval')
+        self.DIR_TEST = os.path.join(self.DIR_RESULT, 'test')
 
         for path in [
                 self.DIR_RESULT, self.DIR_CKPT, self.DIR_EMA_CKPT,
                 self.DIR_LOG, self.DIR_EVALUATION, self.DIR_IMG_LOG,
-                self.DIR_TB_LOG
+                self.DIR_TB_LOG, self.DIR_TEST
         ]:
             if not os.path.isdir(path):
                 try:

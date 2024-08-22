@@ -962,7 +962,7 @@ class DualBranchGPM(nn.Module):
             if attn_weight_remove_0.size(0) > 0:
                 to_drop_idx = torch.argmin(attn_weight_remove_0).item()
                 to_drop_idx += ignore_former_size
-        print(f"{to_drop_idx = }")
+        debug(f"{to_drop_idx = }")
         is_drop = False
         for layer_idx in range(len(self.layers)):
             memory_k_v = self.long_term_memories[layer_idx]

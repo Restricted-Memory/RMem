@@ -1,4 +1,4 @@
-GLOBAL_IS_DEBUG = True
+GLOBAL_IS_DEBUG = False
 
 def debug(values, sep=" ", end="\n"):
     if GLOBAL_IS_DEBUG:

@@ -363,7 +363,7 @@ class AOTEngine(nn.Module):
             self.AOT.LSTT.restrict_long_memories(
                 former_memory_len=self.cfg.FORMER_MEM_LEN,
                 latter_memory_len=self.cfg.LATTER_MEM_LEN,
-                use_atten_weight=USE_ATTEN_WEIGHT_DROP,
+                use_atten_weight=USE_ATTEN_WEIGHT_DROP and (not self.training),
                 long_memories_indexes=self.long_memories_indexes,
                 foreground_proba=foreground_proba,
             )
@@ -429,7 +429,7 @@ class AOTEngine(nn.Module):
             pos_emb=self.pos_emb,
             size_2d=self.enc_size_2d,
             temporal_encoding=temporal_pos_emb,
-            save_atten_weights=USE_ATTEN_WEIGHT_DROP,
+            save_atten_weights=USE_ATTEN_WEIGHT_DROP and (not self.training),
             # save_atten_weights=True,
         )
 

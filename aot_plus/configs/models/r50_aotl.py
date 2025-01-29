@@ -5,7 +5,7 @@ class ModelConfig(DefaultModelConfig):
     def __init__(self):
         super().__init__()
         self.FORMER_MEM_LEN = 1
-        self.LATTER_MEM_LEN = 7
+        self.LATTER_MEM_LEN = 8
         self.GRU_MEMORY = False
         self.FREEZE_AOT_EXCEPT_GRU = self.GRU_MEMORY and True
         gru_memory_text = f"_Gru_mem_{self.FORMER_MEM_LEN}_{self.LATTER_MEM_LEN}{'_Freeze' if self.FREEZE_AOT_EXCEPT_GRU else ''}" if self.GRU_MEMORY else ""

@@ -67,7 +67,7 @@ Firstly prepare the pytorch environment. Please follow the instructions on [pyto
 Then
 ```bash
 conda install numpy matplotlib scipy scikit-learn tqdm pyyaml pandas
-pip install opencv-python
+pip install opencv-python timm
 ```
 
 Now you can replicate the result of our checkpoint.

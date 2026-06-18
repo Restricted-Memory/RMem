@@ -38,6 +38,8 @@ env_RMEM_VOT_WORKSPACE = <your-path>/RMem/vot_workspace
 
 ## 3. Test Tracker
 
+Run the following commands inside `vot_workspace`.
+
 ```bash
 vot test RMem
 ```
